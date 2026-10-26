@@ -1,11 +1,31 @@
 import { useState } from 'react';
+import { useWatchlist } from '../context/WatchlistContext';
 
 function MovieCard({ movie }) {
   const [imageError, setImageError] = useState(false);
 
+  const {
+    addToWatchlist,
+    removeFromWatchlist,
+    isInWatchlist,
+  } = useWatchlist();
+
+  const inWatchlist = isInWatchlist(movie.id);
+
+  const handleWatchlist = () => {
+    if (inWatchlist) {
+      removeFromWatchlist(movie.id);
+    } else {
+      addToWatchlist(movie);
+    }
+  };
+
   const [isFavorite, setIsFavorite] = useState(() => {
     try {
-      const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+      const favorites = JSON.parse(
+        localStorage.getItem('favorites') || '[]'
+      );
+
       return favorites.some((favorite) => favorite.id === movie.id);
     } catch {
       return false;
@@ -14,25 +34,20 @@ function MovieCard({ movie }) {
 
   const handleFavorite = () => {
     try {
-      const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+      const favorites = JSON.parse(
+        localStorage.getItem('favorites') || '[]'
+      );
+
       const alreadyFavorite = favorites.some(
         (favorite) => favorite.id === movie.id
       );
 
-      let updatedFavorites;
-
-      if (alreadyFavorite) {
-        updatedFavorites = favorites.filter(
-          (favorite) => favorite.id !== movie.id
-        );
-      } else {
-        updatedFavorites = [...favorites, movie];
-      }
+      const updatedFavorites = alreadyFavorite
+        ? favorites.filter((favorite) => favorite.id !== movie.id)
+        : [...favorites, movie];
 
       localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
       setIsFavorite(!alreadyFavorite);
-
-      window.dispatchEvent(new Event('favoritesUpdated'));
     } catch (error) {
       console.error('Could not update favorites:', error);
     }
@@ -68,6 +83,15 @@ function MovieCard({ movie }) {
         aria-pressed={isFavorite}
       >
         {isFavorite ? 'Remove Favorite' : 'Add to Favorites'}
+      </button>
+
+      <button
+        type="button"
+        className="watchlist-button"
+        onClick={handleWatchlist}
+        aria-pressed={inWatchlist}
+      >
+        {inWatchlist ? 'Remove from Watchlist' : 'Add to Watchlist'}
       </button>
     </div>
   );

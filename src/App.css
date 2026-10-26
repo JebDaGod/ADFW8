@@ -212,19 +212,19 @@ body {
     flex-direction: column;
     text-align: center;
   }
-  
+
   .search-input {
     width: 250px;
   }
-  
+
   .app-title {
     font-size: 2rem;
   }
-  
+
   .main-content {
     padding: 1rem;
   }
-  
+
   .movie-grid {
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 1.5rem;
@@ -242,6 +242,7 @@ body {
   font-size: 1.2rem;
   margin-bottom: 1rem;
 }
+
 /* All below created with AI */
 .favorite-button {
   display: block;
@@ -278,4 +279,58 @@ body {
   background-color: #e5e7eb;
   color: #555;
   text-align: center;
-};
+}
+
+;
+
+.watchlist-button {
+  display: block;
+  width: 100%;
+  padding: 10px 12px;
+  margin-top: 8px;
+  border: none;
+  border-radius: 6px;
+  background-color: #2e8b57;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.watchlist-button:hover {
+  background-color: #246b43;
+}
+
+.watchlist-button[aria-pressed="true"] {
+  background-color: #555;
+}
+
+.watchlist-button[aria-pressed="true"]:hover {
+  background-color: #333;
+}
+
+.watchlist-button {
+  display: block;
+  width: 100%;
+  padding: 10px 12px;
+  margin-top: 8px;
+  border: none;
+  border-radius: 6px;
+  background-color: #2e8b57;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.watchlist-button:hover {
+  background-color: #246b43;
+}
+
+.watchlist-button[aria-pressed="true"] {
+  background-color: #555;
+}
+
+.watchlist-button[aria-pressed="true"]:hover {
+  background-color: #333;
+}
